@@ -1,0 +1,48 @@
+package ${javaRootPackage}.pojo.entity;
+
+import lombok.Data;
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+/**
+ * @author $author
+ * @date $date
+ */
+@Data
+@TableName("$tableName")
+public class ${ClassName} extends Model<${ClassName}> {
+
+    private static final long serialVersionUID = -1L;
+
+#foreach ($column in $entityColumns)
+    /**
+#if($column.comment == "")
+    *$column.lowerAttrName
+#else
+    *$column.comment
+#end
+    */
+    #if($column.lowerAttrName == "id")
+@TableId(value = "id", type = IdType.AUTO)
+    #end
+private $column.attrType $column.lowerAttrName;
+
+#end
+###if($isIncludeStateEnum)
+##	private Integer stateEnum;
+###end
+###if($isIncludeDeleteEnum)
+##	private Integer deleteEnum;
+##	private Long deleteDate;
+##	private Long deleteUserId;
+###end
+###if($isIncludeCreateDate)
+##	private Long createDate;
+##	private Long createUserId;
+###end
+###if($isIncludeUpdateDate)
+##	private Long updateDate;
+##	private Long updateUserId;
+###end
+}
+

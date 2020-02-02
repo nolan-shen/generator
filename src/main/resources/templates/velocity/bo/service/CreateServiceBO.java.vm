@@ -1,0 +1,23 @@
+package ${javaRootPackage}.pojo.bo.service;
+
+import lombok.*;
+import java.io.Serializable;
+
+/**
+ * @author $author
+ * @date $date
+ */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+public class ${ClassName}CreateServiceBO implements Serializable {
+
+	private static final long serialVersionUID = -1L;
+
+#foreach ($column in $createRequestServiceBOColumns)
+	private $column.attrType $column.lowerAttrName;
+#end
+
+}

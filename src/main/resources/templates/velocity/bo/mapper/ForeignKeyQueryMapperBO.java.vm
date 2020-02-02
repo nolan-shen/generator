@@ -1,0 +1,30 @@
+package ${javaRootPackage}.pojo.bo.mapper;
+
+import ${javaRootPackage}.pojo.bo.mapper.BaseQueryMapperBO;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import java.util.List;
+
+/**
+ * @author $author
+ * @date $date
+ */
+@Setter
+@Getter
+@ToString(callSuper = true)
+public class ${ForeignKeyColumn}MapperBO extends BaseQueryMapperBO {
+
+	private static final long serialVersionUID = -1L;
+
+	private ${attrType} ${foreignKeyColumn};
+	private List<${attrType}> ${foreignKeyColumn}List;
+
+	public ${ForeignKeyColumn}MapperBO(${attrType} ${foreignKeyColumn}) {
+		this.${foreignKeyColumn} = ${foreignKeyColumn};
+	}
+
+	public ${ForeignKeyColumn}MapperBO(List<${attrType}> ${foreignKeyColumn}List) {
+		this.${foreignKeyColumn}List = ${foreignKeyColumn}List;
+	}
+}

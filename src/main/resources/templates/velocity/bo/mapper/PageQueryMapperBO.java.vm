@@ -1,0 +1,33 @@
+package ${javaRootPackage}.pojo.bo.mapper;
+
+import ${javaRootPackage}.pojo.dto.param.PageParam;
+import ${javaRootPackage}.enums.DeleteEnum;
+import lombok.*;
+
+/**
+ * @author $author
+ * @date $date
+ */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+public class ${ClassName}PageQueryMapperBO extends PageParam {
+
+	private static final long serialVersionUID = -1L;
+
+#foreach ($column in $pageQueryParamColumns)
+	private $column.attrType $column.lowerAttrName;
+#end
+
+#foreach($column in $allDateColumns)
+	private $column.attrType ${column.lowerAttrName}StartDate;
+	private $column.attrType ${column.lowerAttrName}EndDate;
+
+#end
+
+#if($isIncludeDeleteEnum)
+	private Integer deleteEnum = DeleteEnum.NOT_DELETED.getCode();
+#end
+}
