@@ -1,4 +1,4 @@
-package ${javaRootPackage}.pojo.entity;
+package ${entityPackage};
 
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.*;
@@ -17,7 +17,7 @@ public class ${ClassName} extends Model<${ClassName}> {
 #foreach ($column in $entityColumns)
     /**
 #if($column.comment == "")
-    *$column.lowerAttrName
+    * $column.lowerAttrName
 #else
     *$column.comment
 #end
@@ -28,21 +28,5 @@ public class ${ClassName} extends Model<${ClassName}> {
 private $column.attrType $column.lowerAttrName;
 
 #end
-###if($isIncludeStateEnum)
-##	private Integer stateEnum;
-###end
-###if($isIncludeDeleteEnum)
-##	private Integer deleteEnum;
-##	private Long deleteDate;
-##	private Long deleteUserId;
-###end
-###if($isIncludeCreateDate)
-##	private Long createDate;
-##	private Long createUserId;
-###end
-###if($isIncludeUpdateDate)
-##	private Long updateDate;
-##	private Long updateUserId;
-###end
 }
 
