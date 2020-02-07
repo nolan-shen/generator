@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.List;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author $author
@@ -133,7 +134,7 @@ public class ${ClassName}Controller {
    *
    * @return R
    */
-  @PostMapping("/list")
+  @GetMapping("/list")
   @PreAuthorize("@pms.hasPermission('')")
   public R list() {
     return R.ok(service.list());
@@ -145,10 +146,10 @@ public class ${ClassName}Controller {
    * @param ids
    * @return R
    */
-  @PostMapping("/listById")
+  @GetMapping("/listById")
   @PreAuthorize("@pms.hasPermission('')")
-  public R listById(@Valid @RequestBody List<Integer> ids) {
-    return R.ok(service.listByIds(ids));
+  public R listById(@RequestParam("ids") Integer[] ids) {
+    return R.ok(service.listByIds(Arrays.asList(ids)));
   }
 
 
