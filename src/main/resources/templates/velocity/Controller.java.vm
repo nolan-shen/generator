@@ -3,18 +3,17 @@ package ${configMap.controllerPackage};
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import ${configMap.iServicePackage}.I${ClassName}Service;
 import ${configMap.dtoPackage}.${ClassName}DTO;
 import ${configMap.entityPackage}.${ClassName};
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.wafersystems.virsical.common.core.util.R;
-
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
 import java.util.List;
+import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * @author $author
@@ -31,28 +30,30 @@ public class ${ClassName}Controller {
 
   /**
    * 添加
+   *
    * @param dto
    * @return R
    */
   @PostMapping("/create")
   @PreAuthorize("")
   public R create(@Valid @RequestBody ${ClassName}DTO dto) {
-      ${ClassName} entity = new ${ClassName}();
+    ${ClassName} entity = new ${ClassName}();
     BeanUtils.copyProperties(dto, entity);
     return R.ok(service.save(entity));
   }
 
   /**
    * 批量添加
-   * @param dtoLis
+   *
+   * @param dtoList
    * @return R
    */
   @PostMapping(value = "/batch/create")
   @PreAuthorize("")
-  public R batchCreate(@Valid @RequestBody ${ClassName}DTO dtoLis) {
+  public R batchCreate(@Valid @RequestBody List<${ClassName}DTO> dtoList) {
     ArrayList<${ClassName}> entityList = new ArrayList<>(dtoList.size());
     dtoList.forEach(dto -> {
-        ${ClassName} entity = new ${ClassName}();
+      ${ClassName} entity = new ${ClassName}();
       BeanUtils.copyProperties(dto, entity);
       entityList.add(entity);
     });
@@ -61,6 +62,7 @@ public class ${ClassName}Controller {
 
   /**
    * 通过id删除
+   *
    * @param id
    * @return R
    */
@@ -71,10 +73,11 @@ public class ${ClassName}Controller {
   }
 
   /**
- * 通过id列表删除
- * @param ids
- * @return R
- */
+   * 通过id列表删除
+   *
+   * @param ids
+   * @return R
+   */
   @PostMapping("/batch/delete")
   @PreAuthorize("")
   public R deleteByIds(@Valid @RequestBody List<Integer> ids) {
@@ -82,29 +85,31 @@ public class ${ClassName}Controller {
   }
 
   /**
- * 修改
- * @param dto
- * @return R
- */
+   * 修改
+   *
+   * @param dto
+   * @return R
+   */
   @PostMapping("/update")
   @PreAuthorize("")
   public R update(@Valid @RequestBody ${ClassName}DTO dto) {
-      ${ClassName} entity = new ${ClassName}();
+    ${ClassName} entity = new ${ClassName}();
     BeanUtils.copyProperties(dto, entity);
     return R.ok(service.updateById(entity));
   }
 
   /**
    * 批量修改
-   * @param dtoLis
+   *
+   * @param dtoList
    * @return R
    */
   @PostMapping(value = "/batch/update")
   @PreAuthorize("")
-  public R batchUpdate(@Valid @RequestBody ${ClassName}DTO dtoLis) {
+  public R batchUpdate(@Valid @RequestBody List<${ClassName}DTO> dtoList) {
     ArrayList<${ClassName}> entityList = new ArrayList<>(dtoList.size());
     dtoList.forEach(dto -> {
-        ${ClassName} entity = new ${ClassName}();
+      ${ClassName} entity = new ${ClassName}();
       BeanUtils.copyProperties(dto, entity);
       entityList.add(entity);
     });
@@ -112,60 +117,70 @@ public class ${ClassName}Controller {
   }
 
   /**
-  *
-* @param id
-* @return
-*/
+   * 通过id查询
+   *
+   * @param id
+   * @return R
+   */
   @GetMapping("/{id}")
   @PreAuthorize("")
   public R getById(@PathVariable Integer id) {
     return R.ok(service.getById(id));
   }
 
-  @ApiResponses({
-          @ApiResponse(code = 200, message = "Core Object Model", response = ${ClassName}ResponseDTO.class)
-  })
-      #if($isRelationTable == false)
-      @RequestPermission("${class_name}")
-      #end
-  @PostMapping(value = "/detail", method = RequestMethod.GET)
-  public ResponseEntity<?> detail(@RequestParam Long id) {
-    return R.success(${className}MapStruct.toResponseDTO(${className}Service.findOneById(id)));
+  /**
+   * list
+   *
+   * @return R
+   */
+  @PostMapping("/list")
+  @PreAuthorize("")
+  public R list() {
+    return R.ok(service.list());
   }
 
-  @ApiResponses({
-          @ApiResponse(code = 200, message = "Core Object Model", response = ${ClassName}ResponseDTO.class)
-  })
-      #if($isRelationTable == false)
-      @RequestPermission("${class_name}")
-      #end
-  @RequestMapping(value = "/listByIdList", method = RequestMethod.POST)
-  public ResponseEntity<?> listByIdList(@Valid @RequestBody IdListRequestParam param) {
-    return R.success(${className}MapStruct.toResponseDTOList(${className}Service.findListByIdList(param.getIdList())));
+  /**
+   * 通过ids查询
+   *
+   * @param ids
+   * @return R
+   */
+  @PostMapping("/listById")
+  @PreAuthorize("")
+  public R listById(@Valid @RequestBody List<Integer> ids) {
+    return R.ok(service.listByIds(ids));
   }
 
-  @ApiResponses({
-          @ApiResponse(code = 200, message = "Core Object Model", response = ${ClassName}ResponseDTO.class)
-  })
-      #if($isRelationTable == false)
-      @RequestPermission("${class_name}")
-      #end
-  @RequestMapping(value = "/list", method = RequestMethod.POST)
-  public ResponseEntity<?> list(@RequestBody ${ClassName}PageQueryParam param) {
-    List<${ClassName}> result = ${className}Service.findListByServiceBO(${className}MapStruct.pageQueryParamToServiceBO(param));
-    return R.success(${className}MapStruct.toResponseDTOList(result));
+
+  /**
+   * 分页查询
+   *
+   * @param size
+   * @param current
+   * @return R
+   */
+  @GetMapping("/page")
+  @PreAuthorize("")
+  public R page(Long size, Long current) {
+    Page page = getPage(size, current);
+    return R.ok(service.page(page));
   }
 
-  @ApiResponses({
-          @ApiResponse(code = 200, message = "Core Object Model", response = ${ClassName}ResponseDTO.class)
-  })
-      #if($isRelationTable == false)
-      @RequestPermission("${class_name}")
-      #end
-  @RequestMapping(value = "/page", method = RequestMethod.POST)
-  public ResponseEntity<?> page(@Valid @RequestBody ${ClassName}PageQueryParam param) {
-    PageInfo result = ${className}Service.findPageByServiceBO(${className}MapStruct.pageQueryParamToServiceBO(param));
-    result.setList(${className}MapStruct.toResponseDTOList(result.getList()));
-    return R.success(result);
+  /**
+   * 获取分页对象
+   *
+   * @param size    页数
+   * @param current 当前页
+   * @return Page
+   */
+  private Page<${ClassName}> getPage(Long size, Long current) {
+    Page<${ClassName}> page = new Page<>();
+    if (size != null) {
+      page.setSize(size);
+    }
+    if (current != null) {
+      page.setCurrent(current);
+    }
+    return page;
   }
 }

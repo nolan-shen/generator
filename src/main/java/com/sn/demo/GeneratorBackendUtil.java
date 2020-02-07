@@ -62,8 +62,8 @@ public final class GeneratorBackendUtil {
     strategyContext.executeStrategy(context, tableEntity, config);
 
     // 生成 MapStruct
-    strategyContext.setGeneratorStrategy(new GeneratorMapStruct());
-    strategyContext.executeStrategy(context, tableEntity, config);
+//    strategyContext.setGeneratorStrategy(new GeneratorMapStruct());
+//    strategyContext.executeStrategy(context, tableEntity, config);
 
     //mvc----------------------------------------------------------------------
     // 生成 Mapper
@@ -110,33 +110,6 @@ public final class GeneratorBackendUtil {
     // 生成 ControllerTest
     strategyContext.setGeneratorStrategy(new GeneratorControllerTest());
     strategyContext.executeStrategy(context, tableEntity, config);
-  }
-
-  private static List<EnumEntity> enumClassEntityList(List<ColumnEntity> allEnumColumns) {
-    List<EnumEntity> enumClassEntityList = new ArrayList<>();
-    for (ColumnEntity columnEntity : allEnumColumns) {
-      // 过滤掉 bool 开头的，这类枚举统一用 BooleanEnum
-      if (StringUtil.startsWith(columnEntity.getColumnName(), "bool_")) {
-        continue;
-      }
-      EnumEntity enumEntity = new EnumEntity();
-      enumEntity.setUpperAttrName(columnEntity.getUpperAttrName());
-      String comment = columnEntity.getComment();
-      String enumComment = StringUtil.substringBetween(comment, "[", "]");
-      List<String> enumItemList = StringUtil.splitAndTrim(enumComment, ",");
-      List<EnumItemEntity> enumItemEntityList = new ArrayList<>();
-      for (String temp : enumItemList) {
-        List<String> enumInfoList = StringUtil.splitAndTrim(temp, "=");
-        EnumItemEntity enumItemEntity = new EnumItemEntity();
-        enumItemEntity.setCode(Integer.valueOf(enumInfoList.get(0)));
-        enumItemEntity.setDescription(enumInfoList.get(1));
-        enumItemEntity.setCodeName(enumInfoList.get(2));
-        enumItemEntityList.add(enumItemEntity);
-      }
-      enumEntity.setEnumItemEntityList(enumItemEntityList);
-      enumClassEntityList.add(enumEntity);
-    }
-    return enumClassEntityList;
   }
 
 }
