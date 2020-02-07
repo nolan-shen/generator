@@ -50,6 +50,14 @@ public final class GeneratorCommonUtil {
       tableEntity.setPk(tableEntity.getColumns().get(0));
     }
 
+    //Columns中去掉主键
+    List<ColumnEntity> columnListNonePk = new ArrayList<ColumnEntity>();
+    columnList.forEach(columnEntity -> {
+      if (!StrUtil.equals(columnEntity.getColumnName(), tableEntity.getPk().getColumnName())) {
+        columnListNonePk.add(columnEntity);
+      }
+    });
+
     //设置velocity资源加载器
     Properties prop = new Properties();
     prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -66,6 +74,7 @@ public final class GeneratorCommonUtil {
     contextParam.put("class_name", StringUtil.lowerCamelToLowerUnderscore(tableEntity.getLowerClassName()));
     contextParam.put("pathName", tableEntity.getLowerClassName().toLowerCase());
     contextParam.put("columns", tableEntity.getColumns());
+    contextParam.put("columnsNonePk", columnListNonePk);
     contextParam.put("date", DateUtil.now());
     contextParam.put("moduleName", config.getString("moduleName"));
     contextParam.put("javaRootPackage", config.getString("javaRootPackage"));

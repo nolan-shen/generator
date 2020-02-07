@@ -1,4 +1,4 @@
-package ${entityPackage};
+package ${configMap.entityPackage};
 
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.*;
@@ -12,20 +12,27 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 @TableName("$tableName")
 public class ${ClassName} extends Model<${ClassName}> {
 
-    private static final long serialVersionUID = -1L;
+  private static final long serialVersionUID = -1L;
 
-#foreach ($column in $entityColumns)
-    /**
-#if($column.comment == "")
-    * $column.lowerAttrName
+  /**
+#if($pk.comment == "")
+   * $pk.lowerAttrName
 #else
-    *$column.comment
+   * $pk.comment
 #end
-    */
-    #if($column.lowerAttrName == "id")
-@TableId(value = "id", type = IdType.AUTO)
-    #end
-private $column.attrType $column.lowerAttrName;
+   */
+  @TableId(value = "$pk.lowerAttrName", type = IdType.AUTO)
+  private $pk.attrType $pk.lowerAttrName;
+
+#foreach ($column in $columnsNonePk)
+  /**
+#if($column.comment == "")
+   * $column.lowerAttrName
+#else
+   * $column.comment
+#end
+   */
+  private $column.attrType $column.lowerAttrName;
 
 #end
 }

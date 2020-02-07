@@ -25,6 +25,6 @@ public class GeneratorService implements GeneratorStrategy {
 
 		srcJavaPath = StringUtils.replace(srcJavaPath, "/", File.separator);
 		packagePath = StringUtils.replace(packagePath, ".", File.separator);
-		return srcJavaPath + File.separator + packagePath + File.separator + className + "Service.java";
+		return srcJavaPath + File.separator + packagePath + File.separator + className + "ServiceImpl.java";
 	}
 }

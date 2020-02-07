@@ -1,4 +1,4 @@
-package ${dtoPackage};
+package ${configMap.dtoPackage};
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -14,30 +14,30 @@ import java.io.Serializable;
 @Data
 public class ${ClassName}DTO implements Serializable {
 
-	private static final long serialVersionUID = -1L;
+  private static final long serialVersionUID = -1L;
 
-#foreach ($column in $createRequestParamColumns)
-	/**
+#foreach ($column in $columns)
+  /**
 #if($column.comment == "")
- 	* $column.lowerAttrName
+   * $column.lowerAttrName
 #else
- 	*$column.comment
+   * $column.comment
 #end
-	*/
+   */
 #if($column.boolIsNullable == false)
 #if($column.attrType == "String")
-	@NotBlank(message = "$column.lowerAttrName不能为空")
+  @NotBlank(message = "$column.lowerAttrName不能为空")
 #else
-	@NotNull(message = "$column.lowerAttrName不能为空")
+  @NotNull(message = "$column.lowerAttrName不能为空")
 #end
 #end
 #if($column.attrType == "String")
-	@Length(max = $column.characterMaximumLength, message = "$column.lowerAttrName长度不正确")
+  @Length(max = $column.characterMaximumLength, message = "$column.lowerAttrName长度不正确")
 #end
 #if($column.maxValue)
-	@Range(min = 1, max = $column.maxValue, message = "$column.lowerAttrName数值不正确")
+  @Range(min = 1, max = $column.maxValue, message = "$column.lowerAttrName数值不正确")
 #end
-	private $column.attrType $column.lowerAttrName;
+  private $column.attrType $column.lowerAttrName;
 
 #end
 

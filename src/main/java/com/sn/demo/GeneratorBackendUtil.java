@@ -61,39 +61,11 @@ public final class GeneratorBackendUtil {
     strategyContext.setGeneratorStrategy(new GeneratorDTO());
     strategyContext.executeStrategy(context, tableEntity, config);
 
-    // 生成 cacheConfig
-    strategyContext.setGeneratorStrategy(new GeneratorCacheConfig());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 ServiceBO
-    strategyContext.setGeneratorStrategy(new GeneratorServiceBO());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 MapperBO
-    strategyContext.setGeneratorStrategy(new GeneratorPageQueryMapperBO());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 ForeignKeyMapperBO
-    strategyContext.setGeneratorStrategy(new GeneratorForeignKeyMapperBO());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 ParamMapperBO
-    strategyContext.setGeneratorStrategy(new GeneratorParamMapperBO());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
     // 生成 MapStruct
     strategyContext.setGeneratorStrategy(new GeneratorMapStruct());
     strategyContext.executeStrategy(context, tableEntity, config);
 
     //mvc----------------------------------------------------------------------
-    // 生成 Controller
-    strategyContext.setGeneratorStrategy(new GeneratorController());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 Service
-    strategyContext.setGeneratorStrategy(new GeneratorService());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
     // 生成 Mapper
     strategyContext.setGeneratorStrategy(new GeneratorMapper());
     strategyContext.executeStrategy(context, tableEntity, config);
@@ -102,6 +74,17 @@ public final class GeneratorBackendUtil {
     strategyContext.setGeneratorStrategy(new GeneratorMapperXML());
     strategyContext.executeStrategy(context, tableEntity, config);
 
+    // 生成 IService
+    strategyContext.setGeneratorStrategy(new GeneratorIService());
+    strategyContext.executeStrategy(context, tableEntity, config);
+
+    // 生成 Service
+    strategyContext.setGeneratorStrategy(new GeneratorService());
+    strategyContext.executeStrategy(context, tableEntity, config);
+
+    // 生成 Controller
+    strategyContext.setGeneratorStrategy(new GeneratorController());
+    strategyContext.executeStrategy(context, tableEntity, config);
 
     //权限及压力测试----------------------------------------------------------------------
     // 不是中间表的情况下
