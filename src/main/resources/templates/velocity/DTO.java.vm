@@ -16,7 +16,16 @@ public class ${ClassName}DTO implements Serializable {
 
   private static final long serialVersionUID = -1L;
 
-#foreach ($column in $columns)
+  /**
+#if($pk.comment == "")
+   * $pk.lowerAttrName
+#else
+   * $pk.comment
+#end
+   */
+  private $pk.attrType $pk.lowerAttrName;
+
+#foreach ($column in $columnsNonePk)
   /**
 #if($column.comment == "")
    * $column.lowerAttrName

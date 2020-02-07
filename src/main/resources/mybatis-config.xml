@@ -10,7 +10,7 @@
                 <!-- 1.加载数据库驱动 -->
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <!-- 2.数据库连接地址 -->
-                <property name="url" value="jdbc:mysql://118.25.213.82:3306/cdk8s_sculptor_boot?useSSL=false&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;character_set_client=utf8mb4&amp;character_set_connection=utf8mb4&amp;character_set_database=utf8mb4&amp;character_set_results=utf8mb4&amp;character_set_server=utf8mb4&amp;character_set_system=utf8&amp;character_set_filesystem=binary&amp;collation_connection=utf8mb4_unicode_520_ci&amp;collation_database=utf8mb4_unicode_520_ci&amp;collation_server=utf8mb4_unicode_520_ci"/>
+                <property name="url" value="jdbc:mysql://118.25.213.82:3306/virsical_base?useSSL=false&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;character_set_client=utf8mb4&amp;character_set_connection=utf8mb4&amp;character_set_database=utf8mb4&amp;character_set_results=utf8mb4&amp;character_set_server=utf8mb4&amp;character_set_system=utf8&amp;character_set_filesystem=binary&amp;collation_connection=utf8mb4_unicode_520_ci&amp;collation_database=utf8mb4_unicode_520_ci&amp;collation_server=utf8mb4_unicode_520_ci"/>
                 <!-- 数据库用户... -->
                 <property name="username" value="wafer"/>
                 <!-- 数据库密码... -->

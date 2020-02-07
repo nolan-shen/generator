@@ -90,26 +90,26 @@ public final class GeneratorBackendUtil {
     // 不是中间表的情况下
     if (!isRelationTable) {
       // 生成 PermissionSQL
-      strategyContext.setGeneratorStrategy(new GeneratorPermissionSQL());
-      strategyContext.executeStrategy(context, tableEntity, config);
-
-      // 生成 Gatling
-      strategyContext.setGeneratorStrategy(new GeneratorGatling());
-      strategyContext.executeStrategy(context, tableEntity, config);
+//      strategyContext.setGeneratorStrategy(new GeneratorPermissionSQL());
+//      strategyContext.executeStrategy(context, tableEntity, config);
+//
+//      // 生成 Gatling
+//      strategyContext.setGeneratorStrategy(new GeneratorGatling());
+//      strategyContext.executeStrategy(context, tableEntity, config);
     }
 
     //测试----------------------------------------------------------------------
     // 生成 MapperTest
-    strategyContext.setGeneratorStrategy(new GeneratorMapperTest());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 ServiceTest
-    strategyContext.setGeneratorStrategy(new GeneratorServiceTest());
-    strategyContext.executeStrategy(context, tableEntity, config);
-
-    // 生成 ControllerTest
-    strategyContext.setGeneratorStrategy(new GeneratorControllerTest());
-    strategyContext.executeStrategy(context, tableEntity, config);
+//    strategyContext.setGeneratorStrategy(new GeneratorMapperTest());
+//    strategyContext.executeStrategy(context, tableEntity, config);
+//
+//    // 生成 ServiceTest
+//    strategyContext.setGeneratorStrategy(new GeneratorServiceTest());
+//    strategyContext.executeStrategy(context, tableEntity, config);
+//
+//    // 生成 ControllerTest
+//    strategyContext.setGeneratorStrategy(new GeneratorControllerTest());
+//    strategyContext.executeStrategy(context, tableEntity, config);
   }
 
 }
