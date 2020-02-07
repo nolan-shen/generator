@@ -66,15 +66,17 @@ public final class GeneratorCommonUtil {
     contextParam.put("class_name", StringUtil.lowerCamelToLowerUnderscore(tableEntity.getLowerClassName()));
     contextParam.put("pathName", tableEntity.getLowerClassName().toLowerCase());
     contextParam.put("columns", tableEntity.getColumns());
-    contextParam.put("datetime", DateUtil.now());
+    contextParam.put("date", DateUtil.now());
     contextParam.put("moduleName", config.getString("moduleName"));
     contextParam.put("javaRootPackage", config.getString("javaRootPackage"));
-
+    contextParam.put("author", config.getString("author"));
+    Map configMap = new HashMap<String, Object>();
     Iterator<String> keys = config.getKeys();
     while (keys.hasNext()) {
       String s = keys.next();
-      contextParam.put(s, config.getString(s));
+      configMap.put(s, config.getString(s));
     }
+    contextParam.put("configMap", configMap);
     return contextParam;
   }
 
@@ -151,9 +153,9 @@ public final class GeneratorCommonUtil {
       columnEntity.setExtra((String) column.get("extra"));
 
       //列名转换成Java属性名
-      String upperAttrName = buildUpperAttrName(columnEntity.getColumnName());
-      columnEntity.setUpperAttrName(upperAttrName);
-      columnEntity.setLowerAttrName(StringUtil.uncapitalize(upperAttrName));
+      String attrName = StrUtil.toCamelCase(columnEntity.getColumnName());
+      columnEntity.setUpperAttrName(StrUtil.upperFirst(attrName));
+      columnEntity.setLowerAttrName(StrUtil.lowerFirst(attrName));
 
       //列的数据类型，转换成Java类型
       String attrType = config.getString(columnEntity.getDataType(), "unknowType");
