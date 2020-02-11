@@ -14,9 +14,12 @@ import com.wafersystems.virsical.admin.BaseTest;
 import java.util.ArrayList;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.LinkedMultiValueMap;
 import java.lang.Integer;
-import java.util.ArrayList; ${configMap.dtoPackage}.${ClassName}DTO;
+import java.lang.Long;
+import ${configMap.dtoPackage}.${ClassName}DTO;
 import ${configMap.entityPackage}.${ClassName};
+
 /**
  * @author $author
  * @date $date
@@ -35,7 +38,7 @@ public class ${ClassName}ControllerTest extends BaseTest {
   private static final String GET_LIST_URL = "/" + MODULE_NAME + "/list";
   private static final String LIST_BY_IDS_URL = "/" + MODULE_NAME + "/listByIds";
   private static final String PAGE_URL = "/" + MODULE_NAME + "/page";
-  ${ClassName} entity = new ${ClassName};
+  ${ClassName} entity = new ${ClassName}();
 
   @BeforeClass
   public void initData() {
@@ -112,8 +115,8 @@ public class ${ClassName}ControllerTest extends BaseTest {
    * 通过id列表删除
    */
   @Test
-  public void batchCreateTest() throws Exception {
-    ArrayList<Integer> list = new ArrayList<>(1);
+  public void batchDeleteTest() throws Exception {
+    ArrayList<Long> list = new ArrayList<>(1);
     list.add(entity.getId());
     String content = JSON.toJSONString(list);
     JSONObject jsonObject = doPost(BATCH_DELETE_URL, content, null, false, false);
