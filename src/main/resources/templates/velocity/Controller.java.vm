@@ -146,9 +146,9 @@ public class ${ClassName}Controller {
    * @param ids
    * @return R
    */
-  @GetMapping("/listById")
+  @GetMapping("/listByIds")
   @PreAuthorize("@pms.hasPermission('')")
-  public R listById(@RequestParam("ids") Integer[] ids) {
+  public R listByIds(@RequestParam("ids") Integer[] ids) {
     return R.ok(service.listByIds(Arrays.asList(ids)));
   }
 

@@ -99,17 +99,19 @@ public final class GeneratorBackendUtil {
     }
 
     //测试----------------------------------------------------------------------
-    // 生成 MapperTest
-//    strategyContext.setGeneratorStrategy(new GeneratorMapperTest());
-//    strategyContext.executeStrategy(context, tableEntity, config);
-//
-//    // 生成 ServiceTest
+    // 生成 ControllerTest
+    strategyContext.setGeneratorStrategy(new GeneratorControllerTest());
+    strategyContext.executeStrategy(context, tableEntity, config);
+
+    // 生成 ServiceTest
 //    strategyContext.setGeneratorStrategy(new GeneratorServiceTest());
 //    strategyContext.executeStrategy(context, tableEntity, config);
 //
-//    // 生成 ControllerTest
-//    strategyContext.setGeneratorStrategy(new GeneratorControllerTest());
+//    // 生成 MapperTest
+//    strategyContext.setGeneratorStrategy(new GeneratorMapperTest());
 //    strategyContext.executeStrategy(context, tableEntity, config);
+
+
   }
 
 }
