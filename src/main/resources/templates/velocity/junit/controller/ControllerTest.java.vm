@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import cn.hutool.core.util.RandomUtil;
+import com.wafersystems.virsical.common.core.constant.CommonConstants;
 import com.wafersystems.virsical.common.core.tenant.TenantContextHolder;
 import com.wafersystems.virsical.admin.BaseTest;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import ${configMap.entityPackage}.${ClassName};
  * @date $date
  */
 @Rollback
-@WithMockUser(authorities = {""})
+@WithMockUser(authorities = {"admin@platform@test"})
 public class ${ClassName}ControllerTest extends BaseTest {
   private static final String MODULE_NAME = "${classname}";
   private static final String CREATE_URL = "/" + MODULE_NAME + "/create";
@@ -173,7 +174,7 @@ public class ${ClassName}ControllerTest extends BaseTest {
   @Test
   public void listByIdsTest() throws Exception {
     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    params.add("ids", "["+entity.getId()+"]");
+    params.add("ids", entity.getId().toString());
     JSONObject jsonObject = doGet(LIST_BY_IDS_URL, false, true, params);
     Assert.assertEquals(jsonObject.get("code"), CommonConstants.SUCCESS);
   }
